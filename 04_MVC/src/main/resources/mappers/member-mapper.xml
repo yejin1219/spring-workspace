@@ -13,16 +13,40 @@
         VALUES(#{id}, #{pwd}, #{name}, #{addr})     
      </insert>
      
-     <select id = "login" parameterType="Member" resultMap="memberMap">
-         SELECT * FROM MEMBER id= #{id} AND password=#{pwd}
+     <select id = "login" parameterType="Member" resultMap="Member">
+         SELECT * FROM MEMBER id= #{id} AND password=#{password}
      </select>
      
      
-     <select id="findMember" resultMap="memberMap">
-         SELECT id, password, name, address
-         FROM MEMBER
-         WHERE id=#{id} 
+     <select id="showAllMember" resultMap="Member">
+          SELECT id, password, name, address FROM MEMBER
      </select>
+     
+     <select id="findMember" parameterType="list" resultMap="Member">
+         SELECT *  FROM MEMBER  WHERE id IN
+         <foreach collection="list" item="item" open="(" close=")" separator=",">
+               #{item}
+         </foreach>
+     </select>
+     
+     <update id="updateMember" parameterType="Member">
+         UPDATE MEMBER
+         <trim prefix="SET" suffixOverrides=",">
+            <if test="pwd!=null">
+               password=#{password},
+            </if> 
+            <if test="name!=null">
+                  name=#{name},
+            </if>
+            <if test="addr!=null">
+                addr=#{addr}
+            </if> 
+         
+         </trim>
+         WHERE id=#{id}
+     </update>
+     
+     
      
      
 </mapper>

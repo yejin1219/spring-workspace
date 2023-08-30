@@ -32,8 +32,9 @@ public class MemberController {
 	   // --> list 값! 데이터 바인딩 -> Model
 	   //model.addAttribute("list",list);
 	   List list = service.findMember(keyword);
-	   model.addAttribute("list",list);
-	   if(list != null) {
+	  
+	   if(list.size()>0) {
+		   model.addAttribute("list",list);
 		   return "find_ok";  
 	   } 
 	   
@@ -50,13 +51,15 @@ public class MemberController {
 	  
 	  // System.out.println(member); //-> Member(id=user1, pwd=1111, name=진, addr=서울 강남)
 	   // 비즈니스 로직, 위에 member이용
-	   Member vo = new Member(
-			   member.getId(), member.getName(), member.getPwd(),
-			   member.getAddr());
-	   
-	       int result =  service.registerMember(vo);
+	 
+	       int result =  service.registerMember(member);
 	         
-	       if(result > 0) return "redirect:/";  // 바인딩 안하고 index.jsp로 넘길때
+	       if(result > 0) { return "redirect:/";  // 바인딩 안하고 index.jsp로 넘길때
+	       
+	       }else {
+	    	   return "error";
+	       }
+		
    }
    
    
@@ -72,19 +75,15 @@ public class MemberController {
    // signIn - 비즈니스 로직 포함 : 파라미터 값 -> HttpServletRequest request
    // -> return "login_result"
    @RequestMapping("signIn")
-   public String signIn(HttpServletRequest request) {
-	   String id = request.getParameter("id");
-	   String password = request.getParameter("password");
-	   Member m = new Member();
-	   m.setId(id);
-	   m.setPassword(password);
+   public String signIn(Member vo, HttpSession session) {
+	  
 	   
-	   Member vo = service.login(m);
+	   Member member = service.login(vo);
 	   
-	   HttpSession session = request.getSession();
+	  
 	   
-	   if(vo!=null) {
-		   session.setAttribute("vo",vo);
+	   if(member!=null) {
+		   session.setAttribute("vo",member);
 	   }
 	   
 	        
@@ -97,13 +96,23 @@ public class MemberController {
 	   List list = service.showAllMember();
 	   // allMember - 비즈니스 로직 포함, 데이터바인딩 - Model
 	   // --> return "find_ok";
-	   model.addAttribute("list", list);
+	   if(list.size()>0) {
+		   model.addAttribute("list", list);  
+	   }
+	  
 	return "find_ok";
 	   
    }
   
    
    // logout - 로그아웃 기능!
+   @RequestMapping("logout")
+   public String logout(HttpSession session) {
+	   if(session.getAttribute("vo")!= null) {
+		   session.invalidate();
+	   }
+	   return "redirect:/";
+   }
    
    // update - 페이지 이동
    @RequestMapping("update")
@@ -112,16 +121,16 @@ public class MemberController {
    }
    
    @RequestMapping("modify")
-   public String updateMember(HttpServletRequest request) {
-	   String id = request.getParameter("id");
-		String password = request.getParameter("password");
-		String name = request.getParameter("name");
-		String address = request.getParameter("address");
-	   
-	   Member vo = new Member(id,password,name,address);
-	   int result = service.updateMember(vo);
-	   if(result > 0) return "update_result.jsp";
-	
+   public String updateMember(HttpSession session, Member member) {
+	 
+	 
+	  service.updateMember(member);
+	  
+	   if(session.getAttribute("vo")!=null) {
+		   session.setAttribute("vo", member);
+		   
+	   }
+	   return "update_result";
 	   
    }
    

@@ -25,7 +25,7 @@ public class BoardController {
 	public void list(Model model) {
 		List<Board> list = service.selectAll();
 		model.addAttribute("list",list);
-		//return "board/list";
+		//return "board/list"; <- public String list(Model model) 이었는데 , 같은 화면으로 처리하는 거라 void로 바꾸고 return 없앰
 	}
 	
 //	@PostMapping("/list")

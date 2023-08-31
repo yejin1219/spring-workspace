@@ -9,21 +9,47 @@
   
   </insert>
    
+   
+   <!--CDATA :  <= 이러한 등호 그대로 쓰기 위해 사용  -->
+   
    <select id="selectAll" resultType="Board">
-         SELECT no,title,content, writer, regdate FROM BOARD
+   <![CDATA[
+        SELECT NUM,NO,TITLE,WRITER,REGDATE
+        FROM(
+           SELECT /*+ INDEX_DESC(board PK_BOARD)*/
+           ROWNUM NUM, NO, TITLE, WRITER, REGDATE
+           FROM BOARD
+           WHERE ROWNUM <= #{page}*#{amount}
+           )
+        WHERE NUM > (#{page}-1) *#{amount}
+    
+   ]]>
+
    </select>
    
-   <select id="select">
-       SELECT no, title,content,writer,regdate
-       FROM BOARD 
+   <select id= "getTotal"  resultType="int">
+       SELECT COUNT(*)
+       FROM BOARD
+   
+   </select>
+
+   <select id="select" parameterType="int" resultType="Board">
+       SELECT *
+       FROM BOARD
+       WHERE NO = #{no} 
    </select>
    
-   <update id="update">
-        UPDATE BOARD SET TITLE=#{title},CONTENT=#{content},WRITER=#{writer} WHERE no =#{no}
+   <update id="update" parameterType="Board">
+        UPDATE BOARD SET TITLE=#{title},CONTENT=#{content} WHERE no =#{no}
           
    </update>
 
-   <delete id="delete"></delete>
+   <delete id="delete" parameterType="int">
+       DELETE FROM BOARD
+       WHERE no =#{no}
+   </delete>
+   
+   
 
 
 </mapper>

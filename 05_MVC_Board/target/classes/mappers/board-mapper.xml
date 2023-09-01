@@ -4,8 +4,8 @@
 
 <mapper namespace="board">
   <insert id="insert" parameterType="Board" useGeneratedKeys="true" keyProperty="no" keyColumn="no">
-      INSERT INTO BOARD (no,title,content,writer)
-      VALUES(SEQ_BOARD.NEXTVAL, #{title},#{content},#{writer})
+      INSERT INTO BOARD (no,title,content,writer,url)
+      VALUES(SEQ_BOARD.NEXTVAL, #{title},#{content},#{writer},#{url})
   
   </insert>
    
@@ -40,7 +40,7 @@
    </select>
    
    <update id="update" parameterType="Board">
-        UPDATE BOARD SET TITLE=#{title},CONTENT=#{content} WHERE no =#{no}
+        UPDATE BOARD SET TITLE=#{title},CONTENT=#{content}, url=#{url} WHERE no =#{no}
           
    </update>
 

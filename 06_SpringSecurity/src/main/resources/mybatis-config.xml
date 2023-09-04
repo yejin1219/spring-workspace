@@ -6,8 +6,7 @@
     </settings>
 
     <typeAliases >
-       <typeAlias type="com.kh.mvc.model.vo.Board" alias="Board"/>
-       <typeAlias type="com.kh.mvc.model.vo.Member" alias="Member"/>
+       <typeAlias type="com.kh.security.model.vo.Member" alias="Member"/>
     </typeAliases>
     
     
@@ -28,7 +27,6 @@
      </environments>
      
      <mappers>
-      <mapper resource="mappers/board-mapper.xml"/>
       <mapper resource="mappers/member-mapper.xml"/>
      </mappers>
     

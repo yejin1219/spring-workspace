@@ -143,5 +143,8 @@ public class BoardController {
 		map.put("path", path);
 		return new ModelAndView("downloadView", map);
 	}
+	
+	
+	
 }
 

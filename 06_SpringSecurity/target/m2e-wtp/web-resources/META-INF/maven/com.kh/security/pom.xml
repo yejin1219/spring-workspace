@@ -3,8 +3,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.kh</groupId>
-	<artifactId>mvc</artifactId>
-	<name>05_MVC_Board</name>
+	<artifactId>security</artifactId>
+	<name>06_SpringSecurity</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
@@ -113,16 +113,10 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.13.2</version>
+			<version>4.7</version>
 			<scope>test</scope>
-		</dependency>      
+		</dependency> 
 		
-		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-test</artifactId>
-		    <version>${org.springframework-version}</version>
-		
-		</dependency>
 		
 		
 				<!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
@@ -160,14 +154,7 @@
     <version>1.18.28</version>
     <scope>provided</scope>
 </dependency>
-		
-<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
-<dependency>
-    <groupId>commons-fileupload</groupId>
-    <artifactId>commons-fileupload</artifactId>
-    <version>1.5</version>
-</dependency>
-
+				
 <!-- Spring Security -->		
  <dependency>
     <groupId>org.springframework.security</groupId>
@@ -186,8 +173,7 @@
     <artifactId>spring-security-config</artifactId>
     <version>${org.springframework-version}</version>
  </dependency>	
-
-		  
+		       
 	</dependencies>
     <build>
         <plugins>

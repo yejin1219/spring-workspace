@@ -9,7 +9,7 @@
    </insert>
    
    <!-- Dynamic Query : selctAll + selectOne(num) -->
-   <select id="selectOne" parameterType="String" resultType="Phone">
+   <select id="select" parameterType="String" resultType="Phone">
        SELECT num, model, price, vcode
        FROM PHONE 
        
@@ -18,22 +18,13 @@
        </if>    
    </select>
    
-    <select id="selectAll"  resultType="Phone">
-       SELECT num, model, price, vcode
-       FROM PHONE   
-   </select>
    
-   <delete id="delete" parameterType="list" >
+   <delete id="delete" parameterType="String" >
    DELETE FROM PHONE
-   WHERE NUM IN
-   
-    <foreach collection="list" item="item" open="(" close=")" separator=",">
-                   #{item}          
-    </foreach>
- 
+   WHERE NUM=#{num}
    </delete>
    
-   <update id="update" parameterType="Phone">
+   <update id="update" parameterType="String">
     UPDATE PHONE
     SET  MODEL=#{model}, PRICE=#{price}, VCODE=#{vcode} 
     WHERE NUM=#{num}

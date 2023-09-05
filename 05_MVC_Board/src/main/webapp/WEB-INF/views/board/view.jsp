@@ -47,13 +47,30 @@
                <input type="text" readonly id="writer" name="writer" class="form-control " value="${board.writer}"/>
              </div>
              
-             <sec:authentication property="principal" var="info"/><!-- "principal" : 로그인한 정보를 가져올 수 있다. -->
              
-             <!-- 작성자와 로그인 정보가 일치해야 수정, 삭제 버튼이 보일 수 있도록  -->
-               <c:if test="${board.writer eq info.username}">
+           <!--    
+             <c:if test="${!empty info}">
+               <sec:authentication property="principal" var="info"/> "principal" : 로그인한 정보를 가져올 수 있다. 만약에 로그인된 정보가 없으면 anonymouseUser(문자열)가 들어감
+             
+              작성자와 로그인 정보가 일치해야 수정, 삭제 버튼이 보일 수 있도록  
+               <c:if test="${board.writer eq info.name}">
                  <a  class="btn btn-outline-warning " href="/board/update?no=${board.no}" >수정</a>
                  <a class="btn btn-outline-danger " href="/board/delete?no=${board.no}">삭제</a>
                </c:if>
+             </c:if> 
+             
+             -->  
+           
+            <!-- authorize : 권한부여와 관련된 것
+                 authentication : 인증과 관련된 것, 계정 정보
+             -->
+             <sec:authorize access="hasRole('ROLE_MEMBER')">
+               <sec:authentication property="principal" var="info"/>
+                <c:if test="${board.writer eq info.name}">
+                 <a  class="btn btn-outline-warning " href="/board/update?no=${board.no}" >수정</a>
+                 <a class="btn btn-outline-danger " href="/board/delete?no=${board.no}">삭제</a>
+               </c:if>
+             </sec:authorize>
              
              
               

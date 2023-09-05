@@ -7,6 +7,7 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/spring/*-context.xml</param-value>
+		<!-- /WEB-INF/spring/root-context.xml WEB-INF/spring/security-context.xml(여러 개 등록할 때 한칸 띄우고 써도 됨 )-->
 	</context-param>
 	
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->

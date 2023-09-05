@@ -19,6 +19,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 	@Override     //onAuthenticationSuccess : 로그인 성공시 호출되는 메소드 
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
+/*
 		HttpSession session = request.getSession();
 		Member member = null;
 		if (authentication.getPrincipal() instanceof Member) {
@@ -26,8 +27,8 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		}
 
 		// 로그인 한 정보를 session 에 저장했기 때문에 나중에 view.jsp에서 property="principal" 로 로그인한 사용자 정보에 접근할 수 있는 것이다. 
-		session.setAttribute("userInfo", member);
-
+		session.setAttribute("Info", member);
+*/
 		response.sendRedirect("/board/list");
 
 	}

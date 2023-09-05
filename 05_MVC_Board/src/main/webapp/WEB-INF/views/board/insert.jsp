@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html data-bs-theme="dark">
 <head>
@@ -41,9 +43,10 @@
                                                                <!-- 이미지 파일만 넣고 싶을 때 : accept="image/*" -->
              </div>
              
+              
              <div class="form-group">
                <label for="writer">Writer</label>
-               <input type="text" id="writer" name="writer" class="form-control"/>
+               <input type="text" id="writer" name="writer" class="form-control" value="<sec:authentication property="principal.name" />" readonly/>
              </div>
                <button type="submit" class="btn btn-outline-warning">등록</button>
 

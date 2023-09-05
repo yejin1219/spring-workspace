@@ -17,16 +17,23 @@
     <style>
         .header{
             display: flex;
-            justify-content: space-between;
             align-items: flex-end;
+            justify-content: flex-end;
+            
         }
+        .header a{
+            margin-left:5px;
+        }
+        
          h1 {
             margin-top: 70px;
          }
          .pagination{
             display: flex;
             justify-content: center;
+            
          }
+
 
        
     </style>
@@ -35,9 +42,11 @@
 </head>
 <body>
  <div class="container">
+       <h1>List page</h1>
     <div class="header">
-        <h1>List page</h1>
+        
         <a href="/board/insert" class="btn btn-outline-warning">게시글 등록</a>
+        <a href="/logout" class="btn btn-outline-danger">로그아웃</a>
     </div>
    
           <table class="table">

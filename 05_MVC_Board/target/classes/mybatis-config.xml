@@ -6,8 +6,13 @@
     </settings>
 
     <typeAliases >
+       <package name="com.kh.mvc.model.vo"/> <!-- 패키지로 설정하면 모델클래스명이 별칭이 된다.  -->
+       <!--  
        <typeAlias type="com.kh.mvc.model.vo.Board" alias="Board"/>
        <typeAlias type="com.kh.mvc.model.vo.Member" alias="Member"/>
+        -->
+       
+       
     </typeAliases>
     
     

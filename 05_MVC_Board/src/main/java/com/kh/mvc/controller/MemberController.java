@@ -21,6 +21,7 @@ public class MemberController {
 	    @GetMapping("/login")
 	    public void login() {}
 	    
+	    
 	    @GetMapping("/register")
 	    public void register() {}
 	    
@@ -33,4 +34,7 @@ public class MemberController {
 			return "redirect:/login";
 	    	
 	    }
+	    
+	    @GetMapping("/logout") //logout.jsp와 로그아웃이 들어가 있는 list.jsp 둘 다 같은 폴더 안에 들어가 있기 때문에 /board/logout 이라고 안써도 됨
+	    public void logout() {}
 }

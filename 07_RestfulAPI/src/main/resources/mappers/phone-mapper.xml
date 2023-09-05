@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="phone">
+   <insert id="insert" parameterType="Phone">
+      INSERT INTO PHONE(num,model,price,vcode)
+      VALUES (#{num}, #{model}, #{price}, #{vcode})
+      
+   </insert>
+   
+   <!-- Dynamic Query : selctAll + selectOne(num) -->
+   <select id="selectOne" parameterType="String" resultType="Phone">
+       SELECT num, model, price, vcode
+       FROM PHONE 
+       
+       <if test="num!= null">
+          WHERE NUM =#{num}  
+       </if>    
+   </select>
+   
+    <select id="selectAll"  resultType="Phone">
+       SELECT num, model, price, vcode
+       FROM PHONE   
+   </select>
+   
+   <delete id="delete" parameterType="list" >
+   DELETE FROM PHONE
+   WHERE NUM IN
+   
+    <foreach collection="list" item="item" open="(" close=")" separator=",">
+                   #{item}          
+    </foreach>
+ 
+   </delete>
+   
+   <update id="update" parameterType="Phone">
+    UPDATE PHONE
+    SET  MODEL=#{model}, PRICE=#{price}, VCODE=#{vcode} 
+    WHERE NUM=#{num}
+   </update>
+   
+   <!-- Dynamic Query : id와 pw 둘 다 입력했을때랑 id만 입력했을 때-->
+   <select id="selectUser" >
+     SELECT id, pw
+     FROM USERIFO
+     <choose>
+        <when test="id !=null">
+           WHERE ID=#{id}
+        </when>
+     
+        <otherwise >
+           WHERE ID=#{id} AND PW=#{pw}
+        </otherwise>
+     </choose>   
+   </select>
+</mapper>

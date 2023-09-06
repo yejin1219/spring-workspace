@@ -13,7 +13,7 @@ import com.kh.api.model.UserInfo;
 public class PhoneServiceImpl implements PhoneService {
 
 	@Autowired
-	private PhoneDAOImpl dao;
+	private PhoneDAOImpl dao; // PhoneDAO 인터페이스로도 주입 가능 
 	
 	@Override
 	public int insert(Phone phone) {

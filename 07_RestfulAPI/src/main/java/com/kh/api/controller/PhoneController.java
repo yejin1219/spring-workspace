@@ -14,25 +14,38 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kh.api.model.Phone;
+import com.kh.api.service.PhoneService;
 import com.kh.api.service.PhoneServiceImpl;
 
 @RestController
 public class PhoneController {
 
 	@Autowired
-	private PhoneServiceImpl service;
+	private PhoneService service;
 	
 	@GetMapping("/phone")
 	public ResponseEntity select() {
 		
-		//phone전체 리스트  
-		List<Phone> list = service.select();
+		// try~catch 로 처리해도 된다.
+		try {
+			 //phone전체 리스트  
+		     List<Phone> list = service.select();
+		     return new ResponseEntity(list, HttpStatus.OK);
+		 } catch(RuntimeException e) {
+			 return new ResponseEntity( HttpStatus.NO_CONTENT);
+		 }
 		
+		
+		/* 조건문으로 처리 해도 되고 
 		if(list.isEmpty()) {
 			
-			return new ResponseEntity("list", HttpStatus.OK); // 상태코드를 같이 보내줄 수 있다. ok일때:200
+			return new ResponseEntity(list, HttpStatus.OK); // 상태코드를 같이 보내줄 수 있다. ok일때:200
 		}
-		  return new ResponseEntity("list", HttpStatus.OK);
+		  return new ResponseEntity( HttpStatus.NO_CONTENT);
+		  
+		*/  
+		  
+		 
 		
 	}
 	
@@ -41,34 +54,48 @@ public class PhoneController {
 		Phone phone = service.select(num);
 		
 		if(phone != null) {
-			return new ResponseEntity("list", HttpStatus.OK);
+			return new ResponseEntity(phone, HttpStatus.OK);
 		}
-		return new ResponseEntity("error", HttpStatus.NO_CONTENT);
+		return new ResponseEntity( HttpStatus.NO_CONTENT);
 	}
 	
 	@PostMapping("/phone")
 	public ResponseEntity insert(@RequestBody Phone phone) {
+		
+		try {
+			int result = service.insert(phone);
+		    return new ResponseEntity(result, HttpStatus.OK);
+		}catch(RuntimeException e) {
+			 return new ResponseEntity( HttpStatus.NO_CONTENT);
+		 }
+		
+		
+		/*
 		if(service.insert(phone)>0) {
-			return new ResponseEntity("list", HttpStatus.OK);
+			return new ResponseEntity(HttpStatus.OK);
 		}
 		
-		return new ResponseEntity(HttpStatus.NOT_FOUND);
+		return new ResponseEntity(HttpStatus.NO_CONTENT);
+		*/
 	}
 	
 	@PutMapping("/phone")
 	public ResponseEntity update(@RequestBody Phone phone) {
-		if(service.update(phone)>0) {
-			return new ResponseEntity(HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		try {
+			service.update(phone);
+		    return new ResponseEntity(HttpStatus.OK);
+		}catch(RuntimeException e) {
+			 return new ResponseEntity( HttpStatus.NO_CONTENT);
+		 }
 	}
 	
 	@DeleteMapping("/phone/{num}")
 	public ResponseEntity delete(@PathVariable String num) {
-		if(service.delete(num)>0) {
-			return new ResponseEntity(HttpStatus.OK);
-		}
-		return new ResponseEntity(HttpStatus.BAD_REQUEST);
-		
+		try {
+			service.delete(num);
+		    return new ResponseEntity(HttpStatus.OK);
+		}catch(RuntimeException e) {
+			 return new ResponseEntity( HttpStatus.NO_CONTENT);
+		 }
 	}
 }

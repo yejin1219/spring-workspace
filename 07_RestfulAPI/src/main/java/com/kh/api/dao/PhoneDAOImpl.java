@@ -35,13 +35,13 @@ public class PhoneDAOImpl implements PhoneDAO{
 	@Override
 	public Phone select(String num) {
 		
-		return (Phone) session.selectOne("phone.select", num);
+		return  session.selectOne("phone.select", num);
 	}
 
 	@Override
 	public List<Phone> select() {
 		
-		return session.selectList("phone.select");
+		return session.selectList("phone.select", null);
 	}
 
 	@Override
